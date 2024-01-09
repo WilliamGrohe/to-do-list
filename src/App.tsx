@@ -1,6 +1,6 @@
 import LogoImg from "./assets/Logo.svg";
 import PlusIcon from "./assets/plus.svg";
-import ClipboardIcon from "./assets/Clipboard.svg";
+import ClipboardIcon from "../src/assets/Clipboard.svg";
 
 import { TasksCard } from "./components/TasksCard";
 import { useState } from "react";
