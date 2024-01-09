@@ -1,7 +1,17 @@
-export function TasksCard({conteudo, chave}) {
+export function TasksCard({conteudo, chave, deleteTask}) {
+  const inputChecked = document.querySelectorAll('label[class=peer-checked]');
+
+
+  console.log(inputChecked.values)
+
+  function handleDeleteTask(){
+    event?.preventDefault()
+    deleteTask(chave)
+  }
+
   return (
     <div className="bg-[var(--gray-500)] text-[var(--gray-100)] text-sm flex gap-3 p-4 justify-between items-center  rounded-lg transition-all mb-4">
-      <div className="">
+      <div className="teste">
         <input type="checkbox" id={chave} className="h-0 w-0 hidden peer" />
 
         <label
@@ -11,13 +21,19 @@ export function TasksCard({conteudo, chave}) {
                           peer-checked:after:content-['\2714']
                           peer-checked:ring-[var(--dark-purple)] peer-checked:bg-[var(--dark-purple)]
                           peer-checked:hover:ring-[var(--purple)] peer-checked:hover:bg-[var(--purple)]
+                          peer-checked:[#corpo:]line-through
+                          peer-checked:first:line-through
                           transition-all
-                        "
+                          "
         ></label>
       </div>
-      <div className="flex-auto">{conteudo}</div>
+      <div id="corpo" className="flex-auto">
+        {/* {chave.checked ? alert('sim') : alert('nao')} */}
+       
+        {conteudo}
+      </div>
       <div className="">
-        <button>
+        <button onClick={handleDeleteTask}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="stroke-[var(--gray-300)] hover:stroke-[var(--danger)] p-1 rounded-md hover:bg-[var(--gray-400)] transition-all"

@@ -8,6 +8,7 @@ import { useState } from "react";
 type TaskProps = {
   id: number,
   task: string,
+  isChecked: false,
 }
 
 export function App() {
@@ -18,13 +19,20 @@ export function App() {
   function handleCreateNewTask() {
     event?.preventDefault();
     setAllTasks([...allTasks, newTask]);
-    setNewTask("");
+    // setNewTask({id: 0, task: '', isChecked: false});
+  }
+
+  function handleDeleteTask(chave){
+    const filteredTask = allTasks.filter(taskToDelete => taskToDelete.id !== chave)
+    setAllTasks(filteredTask)
   }
 
   function handleNewTaskChange() {
-    setNewTask(event?.target.value);
+    const idRandom = Math.floor(Math.random() * 100000)
+    console.log(idRandom)
+    setNewTask({id: idRandom, task: event?.target.value, isChecked: false});
   }
-console.log(allTasks)
+
   return (
     <>
       <header className="bg-[var(--gray-700)] h-48 flex justify-center items-center mx-auto">
@@ -53,15 +61,15 @@ console.log(allTasks)
         <div className="flex flex-col flex-1 mt-16">
           <header className="flex flex-1 justify-between text-sm font-bold mb-6">
             <p className="text-[var(--blue)]">
-              Tarefas criadas{" "}
+              Tarefas criadas
               <span className="bg-[var(--gray-400)] text-[var(--gray-200)] ml-2 px-2 py-[2px] rounded-xl">
-                0
+                {allTasks.length}
               </span>
             </p>
             <p className="text-[var(--purple)]">
-              Concluidas{" "}
+              Concluidas
               <span className="bg-[var(--gray-400)] text-[var(--gray-200)] ml-2 px-2 py-[2px] rounded-xl">
-                0
+                {0}
               </span>
             </p>
           </header>
@@ -74,14 +82,26 @@ console.log(allTasks)
               </p>
               <p>Crie tarefas e organize seus itens a fazer</p>
             </div>
-          ) : (
-            allTasks.map((post) => {
-              return <TasksCard 
-                conteudo={post} 
-                chave={post}
-              />;
-            })
-          )}
+            ) : 
+            (
+              <ul>
+                {allTasks.map((post) => {
+                  return (
+                    <li>
+                      <TasksCard 
+                        key={post.id}
+                        chave={post.id}
+                        conteudo={post.task}
+                        deleteTask={handleDeleteTask}  
+                      />
+                    </li>
+                  )
+                  })
+                }
+              </ul>
+            )
+          }
+
         </div>
       </main>
     </>
